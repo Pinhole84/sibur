@@ -1,214 +1,178 @@
-<style>
-body { margin: 0; padding: 0; }
-#map {position: absolute;  width: 100%;  }
-
-    #menu {
-        background: #fff;
-        position: absolute;
-        z-index: 1;
-        top: 10px;
-        right: 10px;
-        border-radius: 3px;
-        width: 210px;
-        border: 1px solid rgba(0, 0, 0, 0.4);
-        font-family: 'Open Sans', sans-serif;
-    }
-
-    #menu a {
-        font-size: 13px;
-        color: #404040;
-        display: block;
-        margin: 0;
-        padding: 0;
-        padding: 10px;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-        text-align: center;
-    }
-
-
-    #menu a:last-child {
-        border: none;
-    }
-
-    #menu a:hover {
-        background-color: #f8f8f8;
-        color: #404040;
-    }
-
-    #menu a.active {
-        background-color: #003d4c;
-        color: #ffffff;
-    }
-
-    #menu a.active:hover {
-        background: #3074a4;
-    }
-</style>
-
-<script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
-
-<div id='map' style='width: 100%; height: 800px;' ><nav id="menu"></nav></div>
-<script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoia29tYXJvZmYiLCJhIjoiY2p4MWl6Y2VzMDFvaDQ2bXdib3oyNXcwOCJ9.NcskfuWnj6SDywIRQ_heuw';// replace this with your access token
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/komaroff/clgcgj4hf001z01mhu58kdz07', // replace this with your style URL
-      center: [68.248383,58.197653],
-      zoom: 2.3
-    });
-
-	map.on('click', function(e) {
-  var features = map.queryRenderedFeatures(e.point, {
-    layers: ['sibur-2'] // replace this with the name of the layer
-  });
-
-  if (!features.length) {
-    return;
-  }
-
-  var feature = features[0];
-
-  var popup = new mapboxgl.Popup({ maxWidth: '600px' },{ offset: [0, -15] })
-    .setLngLat(feature.geometry.coordinates)
-    .setHTML('<p>'+feature.properties.descr +'</p>')
-    .addTo(map);
-});
-
-	map.on('click', function(e) {
-  var features = map.queryRenderedFeatures(e.point, {
-    layers: ['sibur'] // replace this with the name of the layer
-  });
-
-  if (!features.length) {
-    return;
-  }
-
-  var feature = features[0];
-
-  var popup = new mapboxgl.Popup({ maxWidth: '300px' },{ offset: [0, -15] })
-    .setLngLat(feature.geometry.coordinates)
-    .setHTML('<h3>'+ feature.properties.name + '</h3>')
-    .addTo(map);
-});
-
-
-
-
-map.on('load', () => {
-map.setLayoutProperty('sibur','visibility','visible');
-map.setLayoutProperty('sibur-2','visibility','visible');
-map.setLayoutProperty('descr copy','visibility','visible');
-map.setLayoutProperty('i','visibility','visible');
-map.setLayoutProperty('sibur2_descr','visibility','visible');
-map.setLayoutProperty('country','visibility','visible');
-map.setLayoutProperty('all-partners-text','visibility','visible');
-map.setLayoutProperty('all-partners','visibility','visible');
-});
-
-	
-
-    // After the last frame rendered before the map enters an "idle" state.
-    map.on('idle', () => {
-        // If these two layers were not added to the map, abort
-        if (!map.getLayer('sibur') || !map.getLayer('sibur-2')) {
-            return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapbox Map</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
         }
+        #map {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+        }
+        #menu {
+            background: #fff;
+            position: absolute;
+            z-index: 1;
+            top: 10px;
+            right: 10px;
+            border-radius: 3px;
+            width: 210px;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            font-family: 'Open Sans', sans-serif;
+        }
+        #menu a {
+            font-size: 13px;
+            color: #404040;
+            display: block;
+            margin: 0;
+            padding: 10px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+        #menu a:last-child {
+            border: none;
+        }
+        #menu a:hover {
+            background-color: #f8f8f8;
+            color: #404040;
+        }
+        #menu a.active {
+            background-color: #003d4c;
+            color: #ffffff;
+        }
+        #menu a.active:hover {
+            background: #3074a4;
+        }
+    </style>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+</head>
+<body>
+    <div id='map'><nav id="menu"></nav></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia29tYXJvZmYiLCJhIjoiY2p4MWl6Y2VzMDFvaDQ2bXdib3oyNXcwOCJ9.NcskfuWnj6SDywIRQ_heuw'; // Замените своим токеном
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/komaroff/clgcgj4hf001z01mhu58kdz07', // Замените своим стилем
+            center: [68.248383, 58.197653],
+            zoom: 2.3
+        });
 
-		//map.setLayoutProperty('sibur-2','visibility','visible');
-        // Enumerate ids of the layers.
-        const toggleableLayerIds = ['country', 'all-partners'];
-		const toggleableLayerNames = ['Предприятия СИБУРа', 'Образовательные партнеры'];
-        // Set up the corresponding toggle button for each layer.
-		
-        for (let [x,id] of toggleableLayerIds.entries()) {
-            // Skip layers that already have a button set up.
-            if (document.getElementById(id)) {
-                continue;
+        map.on('click', function (e) {
+            var features = map.queryRenderedFeatures(e.point, {
+                layers: ['sibur-2'] // Замените на имя слоя
+            });
+
+            if (!features.length) {
+                return;
             }
 
-            // Create a link.
-            const link = document.createElement('a');
-            link.id = id;
-            link.href = '#';
-            link.textContent = toggleableLayerNames[x];			
-            link.className = 'active';
+            var feature = features[0];
 
-            // Show or hide layer when the toggle is clicked.
-            link.onclick = function (e) {
-                const clickedLayer = this.id;
-                e.preventDefault();
-                e.stopPropagation();
+            var popup = new mapboxgl.Popup({ maxWidth: '600px' }, { offset: [0, -15] })
+                .setLngLat(feature.geometry.coordinates)
+                .setHTML('<p>' + feature.properties.descr + '</p>')
+                .addTo(map);
+        });
 
-                const visibility = map.getLayoutProperty(
-                    clickedLayer,
-                    'visibility'
-                );
-				
-				
+        map.on('click', function (e) {
+            var features = map.queryRenderedFeatures(e.point, {
+                layers: ['sibur'] // Замените на имя слоя
+            });
 
-					
-				
-				///Слой-2
-				if (clickedLayer === 'all-partners'){
-					if (visibility === 'visible') {
-					map.setLayoutProperty('all-partners-text','visibility','none');
-					map.setLayoutProperty('all-partners','visibility','none');
-					map.setLayoutProperty('sibur-2', 'visibility', 'none');
-					map.setLayoutProperty('i', 'visibility', 'none');
-					map.setLayoutProperty('sibur2_descr', 'visibility', 'none');
-   
-                    this.className = '';
-                } else {
-                    this.className = 'active';
-					map.setLayoutProperty('all-partners-text','visibility','visible');
-					map.setLayoutProperty('all-partners','visibility','visible');
-					map.setLayoutProperty('sibur-2', 'visibility', 'visible');
-					map.setLayoutProperty('i', 'visibility', 'visible');
-					map.setLayoutProperty('sibur2_descr', 'visibility', 'visible'); 
+            if (!features.length) {
+                return;
+            }
+
+            var feature = features[0];
+
+            var popup = new mapboxgl.Popup({ maxWidth: '300px' }, { offset: [0, -15] })
+                .setLngLat(feature.geometry.coordinates)
+                .setHTML('<h3>' + feature.properties.name + '</h3>')
+                .addTo(map);
+        });
+
+        map.on('load', () => {
+            map.setLayoutProperty('sibur', 'visibility', 'visible');
+            map.setLayoutProperty('sibur-2', 'visibility', 'visible');
+            map.setLayoutProperty('descr copy', 'visibility', 'visible');
+            map.setLayoutProperty('i', 'visibility', 'visible');
+            map.setLayoutProperty('sibur2_descr', 'visibility', 'visible');
+            map.setLayoutProperty('country', 'visibility', 'visible');
+            map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
+            map.setLayoutProperty('all-partners', 'visibility', 'visible');
+        });
+
+        map.on('idle', () => {
+            if (!map.getLayer('sibur') || !map.getLayer('sibur-2')) {
+                return;
+            }
+
+            const toggleableLayerIds = ['country', 'all-partners'];
+            const toggleableLayerNames = ['Предприятия СИБУРа', 'Образовательные партнеры'];
+
+            for (let [x, id] of toggleableLayerIds.entries()) {
+                if (document.getElementById(id)) {
+                    continue;
                 }
-				}
-				
-				
-				if (clickedLayer === 'country'){
-					if (visibility === 'visible') {
-					map.setLayoutProperty('country', 'visibility', 'none');
-					map.setLayoutProperty('sibur', 'visibility', 'none');
-					map.setLayoutProperty('descr copy', 'visibility', 'none');
-                    this.className = '';
-                } else {
-                    this.className = 'active';
-					map.setLayoutProperty('country', 'visibility', 'visible'); 
-					map.setLayoutProperty('sibur', 'visibility', 'visible');
-					map.setLayoutProperty('descr copy', 'visibility', 'visible');					
-                }
-				}
-					
 
-                // Toggle layer visibility by changing the layout object's visibility property.
-                if (visibility === 'visible') {
-                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                    this.className = '';
-                } else {
-                    this.className = 'active';
-                    map.setLayoutProperty(
-                        clickedLayer,
-                        'visibility',
-                        'visible'
-                    );
-                }
-            };
+                const link = document.createElement('a');
+                link.id = id;
+                link.href = '#';
+                link.textContent = toggleableLayerNames[x];
+                link.className = 'active';
 
-            const layers = document.getElementById('menu');
-            layers.appendChild(link);
-        }
-    });
+                link.onclick = function (e) {
+                    const clickedLayer = this.id;
+                    e.preventDefault();
+                    e.stopPropagation();
 
+                    const visibility = map.getLayoutProperty(clickedLayer, 'visibility');
 
+                    if (clickedLayer === 'all-partners') {
+                        if (visibility === 'visible') {
+                            map.setLayoutProperty('all-partners-text', 'visibility', 'none');
+                            map.setLayoutProperty('all-partners', 'visibility', 'none');
+                            map.setLayoutProperty('sibur-2', 'visibility', 'none');
+                            map.setLayoutProperty('i', 'visibility', 'none');
+                            map.setLayoutProperty('sibur2_descr', 'visibility', 'none');
 
+                            this.className = '';
+                        } else {
+                            this.className = 'active';
+                            map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
+                            map.setLayoutProperty('all-partners', 'visibility', 'visible');
+                            map.setLayoutProperty('sibur-2', 'visibility', 'visible');
+                            map.setLayoutProperty('i', 'visibility', 'visible');
+                            map.setLayoutProperty('sibur2_descr', 'visibility', 'visible');
+                        }
+                    }
 
+                    if (clickedLayer === 'country') {
+                        if (visibility === 'visible') {
+                            map.setLayoutProperty('country', 'visibility', 'none');
+                            map.setLayoutProperty('sibur', 'visibility', 'none');
+                            map.setLayoutProperty('descr copy', 'visibility', 'none');
+                            this.className = '';
+                        } else {
+                            this.className = 'active';
+                            map.setLayoutProperty('country', 'visibility', 'visible');
+                            map.setLayoutProperty('sibur', 'visibility', 'visible');
+                            map.setLayoutProperty('descr copy', 'visibility', 'visible');
+                        }
+                    }
+                };
 
-
-
-</script>
+                const layers = document.getElementById('menu');
+                layers.appendChild(link);
+            }
+        });
+    </script>
+</body>
+</html>

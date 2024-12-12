@@ -113,7 +113,7 @@
 	
 
         map.on('load', () => {
-	    map.addSource('luhansk-data', {type: 'geojson', data: './map.geojson2'});
+	    map.addSource('luhansk-data', {type: 'geojson', data: './map.geojson'});
 	    map.addLayer({id: 'luhansk-layer', type: 'fill', source: 'luhansk-data', paint: {'fill-color': '#a0cfc3', 'fill-opacity': 1 }});
 	    map.moveLayer('luhansk-layer', 'country');
 	    map.addLayer({id: 'russ2', type: 'fill', source: 'luhansk-data', paint: {'fill-color': '#c0c4c3', 'fill-opacity': 1 }});

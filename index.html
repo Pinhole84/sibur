@@ -118,9 +118,20 @@
             map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
             map.setLayoutProperty('all-partners', 'visibility', 'visible');
 	    map.setLayoutProperty('country2', 'visibility', 'visible');
-		map.once('idle', () => {
-        // Показать карту после загрузки слоя
-        document.getElementById('map').style.visibility = 'visible';
+  // Проверяем загрузку данных источника
+            const checkSourceLoaded = () => {
+                if (map.isSourceLoaded('luhansk-data')) {     
+                    document.getElementById('map').style.display = 'block';   // Отображаем карту
+                } else {
+                    console.error('Не удалось загрузить данные для luhansk-data.');
+                }
+            };
+
+            map.once('data', (event) => {
+                if (event.sourceId === 'luhansk-data' && event.isSourceLoaded) {
+                    checkSourceLoaded();
+                }
+            });
     });
 
 	    

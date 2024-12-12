@@ -15,6 +15,16 @@
             height: 100vh;		
     	    visibility: hidden;
         }
+	
+	#loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 18px;
+            color: #404040;
+        }
 	    
         #menu {
             background: #fff;
@@ -56,6 +66,7 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
+    <div id="loading">Загрузка карты...</div>
     <div id='map'><nav id="menu"></nav></div>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1Ijoia29tYXJvZmYiLCJhIjoiY2p4MWl6Y2VzMDFvaDQ2bXdib3oyNXcwOCJ9.NcskfuWnj6SDywIRQ_heuw'; // Замените своим токеном
@@ -102,7 +113,7 @@
 	
 
         map.on('load', () => {
-	    map.addSource('luhansk-data', {type: 'geojson', data: './map.geojson'});
+	    map.addSource('luhansk-data', {type: 'geojson', data: './map.geojson2'});
 	    map.addLayer({id: 'luhansk-layer', type: 'fill', source: 'luhansk-data', paint: {'fill-color': '#a0cfc3', 'fill-opacity': 1 }});
 	    map.moveLayer('luhansk-layer', 'country');
 	    map.addLayer({id: 'russ2', type: 'fill', source: 'luhansk-data', paint: {'fill-color': '#c0c4c3', 'fill-opacity': 1 }});
@@ -120,7 +131,8 @@
 	    map.setLayoutProperty('country2', 'visibility', 'visible');
   // Проверяем загрузку данных источника
             const checkSourceLoaded = () => {
-                if (map.isSourceLoaded('luhansk-data')) {     
+                if (map.isSourceLoaded('luhansk-data')) {   
+		    document.getElementById('loading').style.display = 'none';
                     document.getElementById('map').style.display = 'block';   // Отображаем карту
                 } else {
                     console.error('Не удалось загрузить данные для luhansk-data.');

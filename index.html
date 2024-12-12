@@ -97,6 +97,29 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoia29tYXJvZmYiLCJhIjoiY2p4MWl6Y2VzMDFvaDQ2bXdib
 
 
 map.on('load', () => {
+
+
+map.addSource('luhansk-data', {
+    type: 'geojson',
+    data: './map.geojson' // Путь к вашему файлу GeoJSON
+});
+
+map.addLayer({
+    id: 'luhansk-layer',
+    type: 'fill',
+    source: 'luhansk-data',
+    paint: {
+        'fill-color': '#FF0000', // Красный цвет для Луганской области
+        'fill-opacity': 0.5      // Полупрозрачность
+    }
+});
+
+
+
+
+
+
+	
 map.setLayoutProperty('sibur','visibility','visible');
 map.setLayoutProperty('sibur-2','visibility','visible');
 map.setLayoutProperty('descr copy','visibility','visible');
@@ -206,20 +229,6 @@ map.setLayoutProperty('all-partners','visibility','visible');
     });
 
 
-map.addSource('luhansk-data', {
-    type: 'geojson',
-    data: 'map.geojson' // Путь к вашему файлу GeoJSON
-});
-
-map.addLayer({
-    id: 'luhansk-layer',
-    type: 'fill',
-    source: 'luhansk-data',
-    paint: {
-        'fill-color': '#FF0000', // Красный цвет для Луганской области
-        'fill-opacity': 0.5      // Полупрозрачность
-    }
-});
 
 
 

@@ -107,6 +107,23 @@
             map.setLayoutProperty('country', 'visibility', 'visible');
             map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
             map.setLayoutProperty('all-partners', 'visibility', 'visible');
+
+	    map.addSource('luhansk-data', {
+  	    type: 'geojson',
+            data: './map.geojson' // Путь к вашему файлу GeoJSON
+       		 });
+
+	  map.addLayer({
+    		id: 'luhansk-layer',
+    		type: 'fill',
+    		source: 'luhansk-data',
+    		paint: {
+       		 'fill-color': '#a0cfc3', // Цвет для Луганской области
+        	'fill-opacity': 0.8      // Полупрозрачность
+    }
+});
+
+		
         });
 
         map.on('idle', () => {
@@ -174,20 +191,7 @@
             }
         });
 
-	map.addSource('luhansk-data', {
-    type: 'geojson',
-    data: './map.geojson' // Путь к вашему файлу GeoJSON
-});
 
-map.addLayer({
-    id: 'luhansk-layer',
-    type: 'fill',
-    source: 'luhansk-data',
-    paint: {
-        'fill-color': '#FF0000', // Красный цвет для Луганской области
-        'fill-opacity': 0.5      // Полупрозрачность
-    }
-});
 
     </script>
 </body>

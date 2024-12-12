@@ -130,20 +130,21 @@
             map.setLayoutProperty('all-partners', 'visibility', 'visible');
 	    map.setLayoutProperty('country2', 'visibility', 'visible');
   // Проверяем загрузку данных источника
-            const checkSourceLoaded = () => {
-                if (map.isSourceLoaded('luhansk-data')) {   
-		    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('map').style.display = 'block';   // Отображаем карту
-                } else {
-                    console.error('Не удалось загрузить данные для luhansk-data.');
-                }
-            };
+    map.on('sourcedata', (event) => {
+        if (event.sourceId === 'luhansk-data' && map.isSourceLoaded('luhansk-data')) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('map').style.visibility = 'visible';
+            document.getElementById('map').style.opacity = '1';
+        }
+    });
 
-            map.once('data', (event) => {
-                if (event.sourceId === 'luhansk-data' && event.isSourceLoaded) {
-                    checkSourceLoaded();
-                }
-            });
+    map.on('error', (event) => {
+        console.error('Ошибка при загрузке:', event.error.message);
+        const loadingElement = document.getElementById('loading');
+        if (loadingElement) {
+            loadingElement.textContent = 'Не удалось загрузить карту. Проверьте подключение.';
+        }
+    });
     });
 
 	    

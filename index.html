@@ -12,8 +12,10 @@
         #map {
             position: absolute;
             width: 100%;
-            height: 100vh;
+            height: 100vh;		
+    	    visibility: hidden;
         }
+	    
         #menu {
             background: #fff;
             position: absolute;
@@ -116,6 +118,10 @@
             map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
             map.setLayoutProperty('all-partners', 'visibility', 'visible');
 	    map.setLayoutProperty('country2', 'visibility', 'visible');
+		map.once('idle', () => {
+        // Показать карту после загрузки слоя
+        document.getElementById('map').style.visibility = 'visible';
+    });
 
 	    
 

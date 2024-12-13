@@ -126,8 +126,6 @@
             map.setLayoutProperty('i', 'visibility', 'visible');
             map.setLayoutProperty('sibur2_descr', 'visibility', 'visible');
             map.setLayoutProperty('country', 'visibility', 'visible');
-            map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
-            map.setLayoutProperty('all-partners', 'visibility', 'visible');
 	    map.setLayoutProperty('country2', 'visibility', 'visible');
   // Проверяем загрузку данных источника
     map.on('sourcedata', (event) => {
@@ -182,8 +180,7 @@
 
                     if (clickedLayer === 'all-partners') {
                         if (visibility === 'visible') {
-                            map.setLayoutProperty('all-partners-text', 'visibility', 'none');
-                            map.setLayoutProperty('all-partners', 'visibility', 'none');
+
                             map.setLayoutProperty('sibur-2', 'visibility', 'none');
                             map.setLayoutProperty('i', 'visibility', 'none');
                             map.setLayoutProperty('sibur2_descr', 'visibility', 'none');
@@ -192,8 +189,7 @@
                             this.className = '';
                         } else {
                             this.className = 'active';
-                            map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
-                            map.setLayoutProperty('all-partners', 'visibility', 'visible');
+
                             map.setLayoutProperty('sibur-2', 'visibility', 'visible');
                             map.setLayoutProperty('i', 'visibility', 'visible');
                             map.setLayoutProperty('sibur2_descr', 'visibility', 'visible');

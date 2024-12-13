@@ -118,7 +118,7 @@
 	    map.moveLayer('luhansk-layer', 'country');
 	    map.addLayer({id: 'russ2', type: 'fill', source: 'luhansk-data', paint: {'fill-color': '#c0c4c3', 'fill-opacity': 1 }});
 	    map.moveLayer('russ2', 'russ');
-	    map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
+	    //map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
             map.setLayoutProperty('all-partners', 'visibility', 'visible');
 
 		
@@ -182,7 +182,7 @@
 
                     if (clickedLayer === 'all-partners') {
                         if (visibility === 'visible') {
-			    map.setLayoutProperty('all-partners-text', 'visibility', 'none');
+			    //map.setLayoutProperty('all-partners-text', 'visibility', 'none');
                             map.setLayoutProperty('all-partners', 'visibility', 'none');
 
                             map.setLayoutProperty('sibur-2', 'visibility', 'none');
@@ -193,7 +193,7 @@
                             this.className = '';
                         } else {
                             this.className = 'active';
-			    map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
+			    //map.setLayoutProperty('all-partners-text', 'visibility', 'visible');
                             map.setLayoutProperty('all-partners', 'visibility', 'visible');
 
                             map.setLayoutProperty('sibur-2', 'visibility', 'visible');
